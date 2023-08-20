@@ -11,7 +11,7 @@ body {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .title {
@@ -45,12 +45,6 @@ body {
 @media only screen and (min-width: 55em) {
   .post-desc {
     width: 70ch;
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .nav {
-    gap: 1rem;
   }
 }
 
@@ -92,7 +86,7 @@ body {
 
 .home-desc {
   font-size: 19px;
-  line-height: 1.4;
+  line-height: 1.7;
   text-align: center;
   margin: 0;
 }
@@ -106,8 +100,10 @@ body {
 /* About Page */
 
 .about-desc {
+  margin-top: 0;
+  margin-bottom: 1.5em;
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #18191a;
 }
 
