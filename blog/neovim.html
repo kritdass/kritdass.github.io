@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <base target="_blank">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/fonts/inter/inter.css" />
+  <link rel="stylesheet" href="/css/fonts/jetbrainsmono/jetbrainsmono.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/clojure.min.js"></script>
+  <script>hljs.highlightAll()</script>
+  <title>neovim | Blog | Krit Dass</title>
+</head>
+
+<body>
+  <main class="post-container">
+    <nav class="nav">
+      <a href="/" target="_self" class="animated-link">home</a>
+      <a href="/blog" target="_self" class="animated-link">blog</a>
+      <a href="/about" target="_self" class="animated-link">about</a>
+    </nav>
+    <h1 class="post-title">neovim</h1>
+    <time datetime="2024-01-04">
+      <p class="post-time">2023-01-04</p>
+    </time>
+    <p class="post-desc">
+      <a href="https://neovim.io/" class="plain-link">Neovim</a> is a highly
+      configurable text editor inspired by Vim. If you aren't familiar with Vim, it's a keyboard-centered, modal editor
+      that allows for intuitive editing. If you want to learn how to use it, install it, open it, and then type
+      <code>:Tutor</code> to go through a tutorial. After a long time of using <a href="https://www.lazyvim.org/"
+        class="plain-link">LazyVim</a>, a Neovim "distribution" (premade configuration), I
+      decided to write my own Neovim configuration. It was challenging but worth it in the end. Since many people
+      struggle with this, I wrote this article as an opinionated overview on how to configure Neovim. As a disclaimer, I
+      do reference Unix commands often that only work on Unix systems like MacOS, Linux, BSD, etc. If you use Windows,
+      you will have to find the equivalent commands for these. Personally, I use Windows but I have <a
+        href="https://learn.microsoft.com/en-us/windows/wsl/about" class="plain-link">WSL</a> installed,
+      which allows you to run an integrated Linux environment in Windows. You also need some basic utilities like
+      <code>git</code> installed.
+    </p>
+    <h2 class="post-header">Introduction</h2>
+    <p class="post-desc">Neovim is usually configured in Lua but my config (which can be found <a
+        href="https://github.com/kritdass/nvim-config" class="plain-link">here</a>) uses <a
+        href="https://fennel-lang.org" class="plain-link">Fennel</a>, which is a Lisp dialect that compiles to Lua. If
+      you want to use Lua instead, you can reference the <a href="https://github.com/kritdass/nvim-config/tree/main/lua"
+        class="plain-link"><code>lua/</code></a> directory of my config, which has the compiled Lua code (albeit ugly).
+      First, let's make the folder that will house our Neovim config.
+    </p>
+    <pre><code>mkdir -p $HOME/.config/nvim
+cd $HOME/.config/nvim</code></pre>
+    <p class="post-desc">
+      Then, let's make an <code>init.lua</code> file.
+    </p>
+    <pre><code>touch init.lua</code></pre>
+    <p class="post-desc">
+      Since we are using Fennel, this file will only bootstrap some necessary things. Here is my <code>init.lua</code>:
+    </p>
+    <pre><code>local function bootstrap(url, ref)
+    local name = url:gsub(".*/", "")
+    local path = vim.fn.stdpath("data") .. "/lazy/" .. name
+    vim.opt.rtp:prepend(path)
+
+    if vim.fn.isdirectory(path) == 0 then
+        print(name .. ": installing in data dir...")
+
+        vim.fn.system({ "git", "clone", "--filter=blob:none", url, path })
+        if ref then
+            vim.fn.system({ "git", "-C", path, "checkout", ref })
+        end
+
+        vim.cmd("redraw")
+        print(name .. ": finished installing")
+    end
+end
+
+bootstrap("https://github.com/folke/lazy.nvim", "v10.15")
+bootstrap("https://github.com/udayvir-singh/tangerine.nvim", "v2.8")
+bootstrap("https://github.com/udayvir-singh/hibiscus.nvim", "v1.7")
+
+require("tangerine").setup({
+    compiler = {
+        verbose = false,
+        hooks = { "onsave", "oninit" },
+    },
+})</code></pre>
+    <p class="post-desc">
+      This code bootstraps the following:
+    </p>
+    <ul>
+      <li>
+        <a href="https://github.com/folke/lazy.nvim" class="plain-link">lazy.nvim</a>: a Neovim package manager that
+        supports lazy-loading
+      </li>
+      <li>
+        <a href="https://github.com/udayvir-singh/tangerine.nvim" class="plain-link">tangerine.nvim</a>: provides Fennel
+        integration in Neovim
+      </li>
+      <li>
+        <a href="https://github.com/udayvir-singh/hibiscus.nvim" class="plain-link">hibiscus.nvim</a>: provides Fennel
+        macros for configuring Neovim
+      </li>
+    </ul>
+    <p class="post-desc">
+      I also add a hook in tangerine to compile the Fennel into Lua everytime I save a Fennel file or open Neovim. Let's
+      also make a directory to store our Fennel config files.
+    </p>
+    <pre><code>mkdir fnl</code></pre>
+    <h2 class="post-header">init.fnl</h2>
+    <p class="post-desc">
+      Now, let's actually start configuring Neovim. If you are following this in Lua, you will want
+      to still put this in <code>init.lua</code> but we will put this in <code>init.fnl</code>. Let's make the file
+      first:
+    </p>
+    <pre><code>touch init.fnl</code></pre>
+    <p class="post-desc">This is my <code>init.fnl</code>:</p>
+    <pre><code>(local lazy (require :lazy))
+(import-macros {: g!} :hibiscus.vim)
+
+(g! :mapleader " ")
+(g! :maplocalleader "\\")
+
+(lazy.setup :plugins {:performance {:reset_packpath false}})
+
+(require :config)</code></pre>
+    <p class="post-desc">
+      First, we setup the leader keys before setting up any plugins. Then, we setup lazy.nvim with
+      our plugins (it will look in the <code>fnl/plugins/</code> which we will worry about later). Also, if you are
+      using Fennel, remember to set <code>reset_packpath</code> to false as this can mess with tangerine. Lastly, we
+      require config (really <code>fnl/config/</code>), which we will also setup later.
+    </p>
+    <h2 class="post-header">Macros</h2>
+    <p class="post-desc">
+      Macros are, in my opinion, the best part of using a Lisp dialect. Hibiscus already provides some macros but you
+      are free to define some of your own. Here are some I have in my <code>fnl/macros.fnl</code>:
+    </p>
+    <pre><code class="language-clj">(fn hl! [group val]
+    `(vim.api.nvim_set_hl 0 ,group ,val))
+
+(fn plug! [plugin ?opts]
+    (doto (or ?opts {}) (tset 1 plugin)))
+
+(fn require! [plugin item]
+    `(. (require ,plugin) ,item))
+
+(fn vim! [cmd]
+    (sym (.. :vim. cmd)))
+
+{: hl! : plug! : require! : vim!}</code></pre>
+    <p class="post-desc">These are simple macros that save some keystrokes. The <code>plug!</code> macro may be
+      confusing but all it does is it avoids Fennel's ugly syntax for mixed tables and allows you to write Lazy plugin
+      specs as <code>(plug! package opts)</code> instead of <code>{1 package ...}</code>.</p>
+    <h2 class="post-header">Config</h2>
+    <p class="post-desc">
+      This directory will house our Neovim configuration (excluding plugins).
+    </p>
+    <pre><code>mkdir fnl/config
+cd fnl/config</code></pre>
+    <p class="post-desc">Now, let's make an <code>init.fnl</code> file</p>
+    <pre><code>touch init.fnl</code></pre>
+    <p class="post-desc">All this file does is exports all the other files in this directory so that we only have to
+      import <code>config</code> in our <code>init.fnl</code>. It is very similar to <code>index.js</code> in JavaScript
+      or <code>__init__.py</code> in Python. My <code>fnl/config/init.fnl</code> file looks like this:
+    </p>
+    <pre><code>(require :config.options)
+(require :config.keymaps)
+(require :config.highlights)
+(require :config.autocmds)</code></pre>
+    <p class="post-desc">
+      Whenever you make a new file in <code>fnl/config/</code>, just remember to import it in <code>init.fnl</code>. My
+      config is quite long so I won't put it here, but you can see it in my repository.
+    </p>
+    <h2 class="post-header">Plugins</h2>
+    <p class="post-desc">Let's make a plugins folder first.</p>
+    <pre><code>mkdir fnl/plugins
+cd fnl/plugins</code></pre>
+    <p class="post-desc">All our plugin specs will go here. Unlike <code>fnl/config/</code>, we do not need an
+      <code>init.fnl</code> file because Lazy will automatically load all the files in this directory. I use a
+      <i>ton</i> of plugins so I won't go over them all. However, I've seen that most people struggle most
+      with configuring LSP (Language Server Protocol), so I'll go over that briefly.
+    </p>
+    <p class="post-desc">
+      My configuration includes automatic setup of LSP servers. I do this with a combination of the following:
+    </p>
+    <ul>
+      <li>
+        <a href="https://github.com/williamboman/mason.nvim" class="plain-link">mason</a>: allows for easy installation
+        of LSP servers
+      </li>
+      <li>
+        <a href="https://github.com/neovim/nvim-lspconfig" class="plain-link">nvim-lspconfig</a>: for configuring LSP
+        servers
+      </li>
+      <li>
+        <a href="https://github.com/neovim/nvim-lspconfig" class="plain-link">mason-lspconfig</a>: integrates Mason with
+        nvim-lspconfig for automatic configuration
+      </li>
+      <li>
+        <a href="https://github.com/hrsh7th/nvim-cmp" class="plain-link">nvim-cmp</a>: for completion (this has many
+        dependencies of its own that allow completion for different things)
+      </li>
+    </ul>
+    <p class="post-desc">
+      If this seems too daunting for you, there's also <a href="https://github.com/VonHeikemen/lsp-zero.nvim"
+        class="plain-link">lsp-zero</a> which provides an easy and painless way to configure LSP. Their <a
+        href="https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/you-might-not-need-lsp-zero.md"
+        class="plain-link">guide</a> for configuring LSP without lsp-zero is also good if you don't want to use it.
+    </p>
+    <h2 class="post-header">Conclusion</h2>
+    <p class="post-desc">Configuring Neovim can be challenging but the best way to go about it is to break it down and
+      configure one thing at a time. If you are still unsure about anything, just reference my <a
+        href="https://github.com/kritdass/nvim-config" class="plain-link">config</a> or anyone else's. I personally used
+      LazyVim as a reference when I was writing mine. Good luck!</p>
+  </main>
+</body>
+
+</html>

@@ -1,110 +1,102 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts/inter/inter.css" />
-    <link rel="stylesheet" href="/css/fonts/jetbrainsmono/jetbrainsmono.css" />
-    <title>this website | Blog | Krit Dass</title>
-    <meta
-      name="description"
-      content="I talk about the process of making this website, my web development journey, and software development in general."
-    />
-  </head>
-  <body>
-    <main class="post-container">
-      <nav class="nav">
-        <a href="/" class="animated-link">home</a>
-        <a href="/blog" class="animated-link">blog</a>
-        <a href="/about" class="animated-link">about</a>
-      </nav>
-      <h1 class="post-title">this website</h1>
-      <time datetime="2023-08-19">
-        <p class="post-time">2023-08-19</p>
-      </time>
-      <p class="post-desc">
-        First, let's start with some background. When I started learning web
-        development in 7th grade, I didn't know that frameworks even existed. I
-        used vanilla HTML and CSS to make a copy of a café website and was
-        amazed that I could <i>code</i> (the process was more copying the code
-        of the original website than actual coding).
-      </p>
-      <p class="post-desc">
-        However, my search for even more capabilities led me to React. If you
-        don't know, React is a web development framework that allows you to make
-        a website using only JavaScript. Slowly but steadily, I learned React
-        and started to make cool interactive websites.
-      </p>
-      <p class="post-desc">
-        You may think of this as a remarkable achievement in my programming
-        journey, but I regret it in hindsight. With React, I got introduced to
-        libraries for <i>everything</i>. NPM became a superpower; whenever I
-        needed something, I searched NPM. With this power came a caveat: I
-        struggled to implement things I used to be able to implement easily. I
-        forgot even HTML and found myself searching W3Schools for basic things.
-        I became stuck in React.
-      </p>
-      <p class="post-desc">
-        Recently, I switched to using Linux from Windows and decided to
-        configure everything myself instead of using a desktop environment. With
-        this advent, I got exposed to a world of open-source software and was
-        surprised that a lot of it advertised simplicity. Why would anyone need
-        simplicity when something could be <i>versatile</i>? I didn't understand
-        this until I wrote my first major project that wasn't a website (<a
-          href="https://github.com/kritdass/pytch"
-          class="plain-link"
-          target="_blank"
-          >a fetch script</a
-        >).
-      </p>
-      <p class="post-desc">
-        Now, a fetch script displays system information and many run it on
-        terminal startup. So, it has to be fast. I wrote my fetch script in
-        Python, a language slower than most programming languages used for fetch
-        scripts. So, to run fast, it had to be <i>simple</i>. This still doesn't
-        explain why I believe simplicity is good, it's just for my particular
-        usecase at the time.
-      </p>
-      <p class="post-desc">
-        I am not too familiar with Python and often find myself consulting a
-        reference, so writing complex code would have made this project hard to
-        maintain. Moreover, it's easy for bugs to get introduced. If I was more
-        experienced, it wouldn't matter for me but it does matter for those who
-        want to contribute. We can see a good example of this when we look at
-        the
-        <a
-          href="https://github.com/yshui/picom/blob/next/History.md"
-          class="plain-link"
-          target="_blank"
-          >reason</a
-        >
-        Picom (an X11 compositor in Linux) was created. Compton, the program it
-        was forked from, became unmaintained and
-        <i>unmaintainable</i>. Now, Picom is much more popular than Compton and
-        is actually maintained. Simplicity can be the difference between the
-        success and failure of a project.
-      </p>
-      <p class="post-desc">
-        Taking this back to React, React is <i>complex</i>. It is meant for
-        dynamic websites, but here I was using it for static websites. I believe
-        that you should use the tool that's fit for the job, not a
-        one-size-fits-all tool. Yet, here I was doing the exact opposite. When I
-        decided to make a personal website (yesterday), I decided to make it in
-        vanilla HTML and CSS. No frameworks. No libraries. Why? Because a static
-        website doesn't need a framework. A static website doesn't need the
-        fancy stuff. And besides, I skipped the step in my web development
-        journey where you're supposed to make cool HTML+CSS websites. I
-        struggled with CSS even in React, and I wanted to fix that.
-      </p>
-      <p class="post-desc">
-        So, this website is made in vanilla HTML and CSS with no frameworks and
-        libraries, not even JavaScript. And it still looks cool. Sometimes you
-        don't need a Swiss army knife to cut an onion and sometimes you don't
-        need a framework to make a website. Just use the right tools for the job
-        and keep it simple.
-      </p>
-    </main>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/fonts/inter/inter.css" />
+  <link rel="stylesheet" href="/css/fonts/jetbrainsmono/jetbrainsmono.css" />
+  <title>this website | Blog | Krit Dass</title>
+  <meta name="description"
+    content="I talk about the process of making this website, my web development journey, and software development in general." />
+</head>
+
+<body>
+  <main class="post-container">
+    <nav class="nav">
+      <a href="/" class="animated-link">home</a>
+      <a href="/blog" class="animated-link">blog</a>
+      <a href="/about" class="animated-link">about</a>
+    </nav>
+    <h1 class="post-title">this website</h1>
+    <time datetime="2023-08-19">
+      <p class="post-time">2023-08-19</p>
+    </time>
+    <p class="post-desc">
+      First, let's start with some background. When I started learning web
+      development in 7th grade, I didn't know that frameworks even existed. I
+      used vanilla HTML and CSS to make a copy of a café website and was
+      amazed that I could <i>code</i> (the process was more copying the code
+      of the original website than actual coding).
+    </p>
+    <p class="post-desc">
+      However, my search for even more capabilities led me to React. If you
+      don't know, React is a web development framework that allows you to make
+      a website using only JavaScript. Slowly but steadily, I learned React
+      and started to make cool interactive websites.
+    </p>
+    <p class="post-desc">
+      You may think of this as a remarkable achievement in my programming
+      journey, but I regret it in hindsight. With React, I got introduced to
+      libraries for <i>everything</i>. NPM became a superpower; whenever I
+      needed something, I searched NPM. With this power came a caveat: I
+      struggled to implement things I used to be able to implement easily. I
+      forgot even HTML and found myself searching W3Schools for basic things.
+      I became stuck in React.
+    </p>
+    <p class="post-desc">
+      Recently, I switched to using Linux from Windows and decided to
+      configure everything myself instead of using a desktop environment. With
+      this advent, I got exposed to a world of open-source software and was
+      surprised that a lot of it advertised simplicity. Why would anyone need
+      simplicity when something could be <i>versatile</i>? I didn't understand
+      this until I wrote my first major project that wasn't a website (<a href="https://github.com/kritdass/pytch"
+        class="plain-link" target="_blank">a fetch script</a>).
+    </p>
+    <p class="post-desc">
+      Now, a fetch script displays system information and many run it on
+      terminal startup. So, it has to be fast. I wrote my fetch script in
+      Python, a language slower than most programming languages used for fetch
+      scripts. So, to run fast, it had to be <i>simple</i>. This still doesn't
+      explain why I believe simplicity is good, it's just for my particular
+      usecase at the time.
+    </p>
+    <p class="post-desc">
+      I am not too familiar with Python and often find myself consulting a
+      reference, so writing complex code would have made this project hard to
+      maintain. Moreover, it's easy for bugs to get introduced. If I was more
+      experienced, it wouldn't matter for me but it does matter for those who
+      want to contribute. We can see a good example of this when we look at
+      the
+      <a href="https://github.com/yshui/picom/blob/next/History.md" class="plain-link" target="_blank">reason</a>
+      Picom (an X11 compositor in Linux) was created. Compton, the program it
+      was forked from, became unmaintained and
+      <i>unmaintainable</i>. Now, Picom is much more popular than Compton and
+      is actually maintained. Simplicity can be the difference between the
+      success and failure of a project.
+    </p>
+    <p class="post-desc">
+      Taking this back to React, React is <i>complex</i>. It is meant for
+      dynamic websites, but here I was using it for static websites. I believe
+      that you should use the tool that's fit for the job, not a
+      one-size-fits-all tool. Yet, here I was doing the exact opposite. When I
+      decided to make a personal website (yesterday), I decided to make it in
+      vanilla HTML and CSS. No frameworks. No libraries. Why? Because a static
+      website doesn't need a framework. A static website doesn't need the
+      fancy stuff. And besides, I skipped the step in my web development
+      journey where you're supposed to make cool HTML+CSS websites. I
+      struggled with CSS even in React, and I wanted to fix that.
+    </p>
+    <p class="post-desc">
+      So, this website is made in vanilla HTML and CSS with no frameworks and
+      libraries, not even JavaScript. And it still looks cool. Sometimes you
+      don't need a Swiss army knife to cut an onion and sometimes you don't
+      need a framework to make a website. Just use the right tools for the job
+      and keep it simple.
+    </p>
+  </main>
+</body>
+
 </html>
