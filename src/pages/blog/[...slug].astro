@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { Icon } from "astro-icon/components";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("posts");
+    return posts.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+const date = post.data.date.toISOString().split("T")[0];
+---
+
+<BlogLayout title={post.data.title} description={post.data.description}>
+    <main class="flex justify-center min-h-screen w-full px-6">
+        <article class="w-full max-w-2xl">
+            <a
+                href="/"
+                class="group inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-3.5"
+            >
+                <Icon
+                    name="tabler:arrow-left"
+                    class="w-5 h-5 group-hover:-translate-x-1 transition-transform"
+                />
+                <span>Back home</span>
+            </a>
+            <header class="mb-12 text-center">
+                <h1
+                    class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100"
+                >
+                    {post.data.title}
+                </h1>
+
+                <div
+                    class="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs font-mono uppercase tracking-widest text-gray-400 dark:text-gray-500"
+                >
+                    <time datetime={post.data.date.toISOString()}>{date}</time>
+                    <span class="text-gray-300 dark:text-gray-700">|</span>
+                    <span>{remarkPluginFrontmatter.readingTime}</span>
+                </div>
+
+                <p
+                    class="mt-4 text-lg text-gray-600 dark:text-gray-400 leading-relaxed"
+                >
+                    {post.data.description}
+                </p>
+            </header>
+
+            <section class="prose dark:prose-invert">
+                <Content />
+            </section>
+        </article>
+    </main>
+</BlogLayout>

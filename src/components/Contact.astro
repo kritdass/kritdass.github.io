@@ -1,0 +1,67 @@
+---
+import Tile from "./Tile.astro";
+import { Icon } from "astro-icon/components";
+
+const contacts = [
+    {
+        label: "Email",
+        value: "kritdass@cmu.edu",
+        href: "mailto:kritdass@cmu.edu",
+        icon: "tabler:mail",
+    },
+    {
+        label: "GitHub",
+        value: "kritdass",
+        href: "https://github.com/kritdass",
+        icon: "tabler:brand-github",
+    },
+    {
+        label: "LinkedIn",
+        value: "in/kritdass",
+        href: "https://linkedin.com/in/kritdass",
+        icon: "tabler:brand-linkedin",
+    },
+    {
+        label: "Goodreads",
+        value: "kritdass",
+        href: "https://goodreads.com/kritdass",
+        icon: "tabler:books",
+    },
+];
+---
+
+<Tile>
+    <div class="flex flex-row gap-1.5 mb-2.5 text-gray-500 dark:text-gray-400">
+        <Icon name="tabler:address-book" class="size-4" />
+        <h2 class="text-xs font-bold uppercase tracking-widest">Contact</h2>
+    </div>
+
+    <div
+        class="grid grid-cols-1 justify-start divide-y divide-gray-400 dark:divide-gray-500 h-full"
+    >
+        {
+            contacts.map((link) => (
+                <a
+                    href={link.href}
+                    target="_blank"
+                    class="flex items-center gap-4 hover:bg-gray-100 dark:hover:bg-gray-800 p-3.5"
+                >
+                    <div>
+                        <Icon
+                            name={link.icon}
+                            class="size-5 text-gray-600 dark:text-gray-400"
+                        />
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-bold text-gray-900 dark:text-gray-100 leading-tight">
+                            {link.label}
+                        </span>
+                        <span class="text-xs text-gray-600 dark:text-gray-400 font-mono">
+                            {link.value}
+                        </span>
+                    </div>
+                </a>
+            ))
+        }
+    </div>
+</Tile>

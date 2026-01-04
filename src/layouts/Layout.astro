@@ -1,0 +1,108 @@
+---
+import type { GetStaticPaths } from "astro";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/playfair-display";
+import "@fontsource/iosevka";
+import "@fontsource/poppins";
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { ClientRouter } from "astro:transitions";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <meta
+            name="description"
+            content="Personal website of Krit Dass, a student and researcher at Carnegie Mellon University"
+        />
+        <title>Krit Dass • कृत दास</title>
+        <ClientRouter />
+
+        <script
+            is:inline
+            src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
+        ></script>
+        <script
+            is:inline
+            src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.birds.min.js"
+        ></script>
+        <script is:inline>
+            function applyTheme() {
+                const theme =
+                    localStorage.theme === "dark" ||
+                    (!("theme" in localStorage) &&
+                        window.matchMedia("(prefers-color-scheme: dark)")
+                            .matches);
+                document.documentElement.classList.toggle("dark", theme);
+            }
+            applyTheme();
+            document.addEventListener("astro:after-swap", applyTheme);
+        </script>
+    </head>
+    <body
+        class="min-h-screen flex flex-col items-center relative bg-white text-black dark:bg-zinc-800 dark:text-white"
+    >
+        <div id="vanta-bg"></div>
+
+        <div
+            class="relative z-10 w-[90%] max-w-7xl flex flex-col justify-center gap-5 leading-none pt-6 h-full"
+        >
+            <Header />
+            <slot />
+            <Footer />
+        </div>
+    </body>
+</html>
+
+<style>
+    #vanta-bg {
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+    }
+</style>
+
+<script>
+    let vantaEffect: any = null;
+
+    function initVanta() {
+        if (vantaEffect) vantaEffect.destroy();
+
+        const isDarkMode = document.documentElement.classList.contains("dark");
+
+        if ((window as any).VANTA && (window as any).VANTA.BIRDS) {
+            vantaEffect = (window as any).VANTA.BIRDS({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.0,
+                minWidth: 200.0,
+                scale: 1.0,
+                scaleMobile: 1.0,
+                backgroundColor: isDarkMode ? 0x27272a : 0xffffff,
+                color1: isDarkMode ? 0xffffff : 0x000000,
+                color2: isDarkMode ? 0xffffff : 0x27272a,
+                birdSize: 1.5,
+                wingSpan: 20.0,
+                speedLimit: 2.0,
+                separation: 100.0,
+                alignment: 50.0,
+                cohesion: 50.0,
+                quantity: 2.0,
+            });
+        }
+    }
+
+    initVanta();
+    document.addEventListener("astro:after-swap", initVanta);
+    document.addEventListener("theme-changed", initVanta);
+</script>

@@ -1,0 +1,31 @@
+---
+import Tile from "./Tile.astro";
+import { Icon } from "astro-icon/components";
+
+const { quote, author } = {
+    quote: "The struggle itself towards the heights is enough to fill a man's heart.",
+    author: "Albert Camus",
+};
+---
+
+<Tile>
+    <div class="flex gap-4 items-start">
+        <div class="text-gray-300 dark:text-gray-700">
+            <Icon name="tabler:quote" class="size-8 text-gray-500" />
+        </div>
+
+        <div class="flex flex-col gap-3">
+            <p
+                class="font-serif text-md italic text-gray-800 dark:text-gray-200 leading-tight"
+            >
+                {quote}
+            </p>
+
+            <p
+                class="text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400"
+            >
+                — {author}
+            </p>
+        </div>
+    </div>
+</Tile>

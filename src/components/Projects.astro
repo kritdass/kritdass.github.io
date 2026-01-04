@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import Project from "./Project.astro";
+import Tile from "./Tile.astro";
+import { Icon } from "astro-icon/components";
+
+const projects = await getCollection("projects");
+---
+
+<Tile>
+    <div class="flex flex-row gap-1.5 mb-2.5 text-zinc-500 dark:text-zinc-400">
+        <Icon name="tabler:code" />
+        <h2 class="text-xs font-bold uppercase tracking-widest">Projects</h2>
+    </div>
+
+    <div
+        class="h-full flex flex-col gap-2.5 overflow-y-auto scrollbar mask-[linear-gradient(to_bottom,black_95%,transparent)] max-h-85"
+    >
+        {projects.map(({ data }) => <Project {...data} />)}
+    </div>
+</Tile>
+
+<style>
+    .scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: gray transparent;
+    }
+
+    html.dark .scrollbar {
+        scrollbar-color: lightgray transparent;
+    }
+</style>

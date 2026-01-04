@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Bookshelf from "../components/Bookshelf.astro";
+import Definition from "../components/Definition.astro";
+import Contact from "../components/Contact.astro";
+import Quote from "../components/Quote.astro";
+import Projects from "../components/Projects.astro";
+import Posts from "../components/Posts.astro";
+import Now from "../components/Now.astro";
+---
+
+<Layout>
+    <main
+        class="grid grid-cols-1 xl:grid-cols-15 xl:grid-rows-12 gap-6 w-full items-stretch"
+    >
+        <div class="xl:col-span-8 xl:row-span-5">
+            <Definition />
+        </div>
+        
+        <div class="xl:col-span-3 xl:row-span-5">
+            <Now />
+        </div>
+
+        <div class="xl:col-span-4 xl:row-span-9">
+            <Bookshelf />
+        </div>
+
+        <div class="xl:col-span-3 xl:row-span-7">
+            <Contact />
+        </div>
+
+        <div class="xl:col-span-4 xl:row-span-7">
+            <Projects />
+        </div>
+
+        <div class="xl:col-span-4 xl:row-span-7">
+            <Posts />
+        </div>
+
+        <div class="xl:col-span-4 xl:row-span-3">
+            <Quote />
+        </div>
+    </main>
+</Layout>

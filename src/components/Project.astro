@@ -1,0 +1,45 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    title: string;
+    description: string;
+    languages: [string];
+    href: string;
+    stars: number;
+}
+
+const { title, description, languages, href, stars } = Astro.props;
+---
+
+<a
+    href={href}
+    target="_blank"
+    class="flex items-start justify-between gap-4 rounded-md border border-gray-200 dark:border-gray-700 p-3 hover:bg-gray-100 dark:hover:bg-gray-800"
+>
+    <div class="flex flex-col gap-2">
+        <h1 class="text-sm font-bold text-gray-900 dark:text-gray-100 truncate">
+            {title}
+        </h1>
+        <p class="text-xs text-gray-600 dark:text-gray-400 line-clamp-1">
+            {description}
+        </p>
+        <div class="flex items-center gap-1">
+            {
+                languages?.map((language) => (
+                    <span class="text-xs text-gray-600 dark:text-gray-400 lowercase px-1 py-0.5 font-mono rounded border border-gray-200 dark:border-gray-700">
+                        {language}
+                    </span>
+                ))
+            }
+        </div>
+    </div>
+    {
+        stars > 0 && (
+            <div class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                <Icon name="tabler:star" />
+                <span>{stars}</span>
+            </div>
+        )
+    }
+</a>
