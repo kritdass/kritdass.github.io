@@ -14,45 +14,31 @@ import Now from "../components/Now.astro";
         id="sortable-grid"
         class="grid grid-cols-1 xl:grid-cols-15 xl:grid-rows-12 gap-6 w-full items-stretch"
     >
-        <div
-            class="xl:col-span-8 xl:row-span-5 cursor-grab active:cursor-grabbing"
-        >
+        <div class="xl:col-span-8 xl:row-span-5">
             <Definition />
         </div>
 
-        <div
-            class="xl:col-span-3 xl:row-span-5 cursor-grab active:cursor-grabbing"
-        >
+        <div class="xl:col-span-3 xl:row-span-5">
             <Now />
         </div>
 
-        <div
-            class="xl:col-span-4 xl:row-span-9 cursor-grab active:cursor-grabbing"
-        >
+        <div class="xl:col-span-4 xl:row-span-9">
             <Bookshelf />
         </div>
 
-        <div
-            class="xl:col-span-3 xl:row-span-7 cursor-grab active:cursor-grabbing"
-        >
+        <div class="xl:col-span-3 xl:row-span-7">
             <Contact />
         </div>
 
-        <div
-            class="xl:col-span-4 xl:row-span-7 cursor-grab active:cursor-grabbing"
-        >
+        <div class="xl:col-span-4 xl:row-span-7">
             <Projects />
         </div>
 
-        <div
-            class="xl:col-span-4 xl:row-span-7 cursor-grab active:cursor-grabbing"
-        >
+        <div class="xl:col-span-4 xl:row-span-7">
             <Posts />
         </div>
 
-        <div
-            class="xl:col-span-4 xl:row-span-3 cursor-grab active:cursor-grabbing"
-        >
+        <div class="xl:col-span-4 xl:row-span-3">
             <Quote />
         </div>
     </main>
@@ -62,12 +48,18 @@ import Now from "../components/Now.astro";
     import Sortable from "sortablejs";
 
     const el = document.getElementById("sortable-grid");
+    const isXl = window.matchMedia("(min-width: 1280px)");
 
     if (el) {
-        Sortable.create(el, {
+        const sortable = Sortable.create(el, {
             animation: 200,
             ghostClass: "opacity-50",
             forceFallback: true,
+            disabled: !isXl.matches,
         });
+
+        isXl.addEventListener("change", (e) =>
+            sortable.option("disabled", !e.matches),
+        );
     }
 </script>
