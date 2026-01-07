@@ -11,34 +11,63 @@ import Now from "../components/Now.astro";
 
 <Layout>
     <main
+        id="sortable-grid"
         class="grid grid-cols-1 xl:grid-cols-15 xl:grid-rows-12 gap-6 w-full items-stretch"
     >
-        <div class="xl:col-span-8 xl:row-span-5">
+        <div
+            class="xl:col-span-8 xl:row-span-5 cursor-grab active:cursor-grabbing"
+        >
             <Definition />
         </div>
-        
-        <div class="xl:col-span-3 xl:row-span-5">
+
+        <div
+            class="xl:col-span-3 xl:row-span-5 cursor-grab active:cursor-grabbing"
+        >
             <Now />
         </div>
 
-        <div class="xl:col-span-4 xl:row-span-9">
+        <div
+            class="xl:col-span-4 xl:row-span-9 cursor-grab active:cursor-grabbing"
+        >
             <Bookshelf />
         </div>
 
-        <div class="xl:col-span-3 xl:row-span-7">
+        <div
+            class="xl:col-span-3 xl:row-span-7 cursor-grab active:cursor-grabbing"
+        >
             <Contact />
         </div>
 
-        <div class="xl:col-span-4 xl:row-span-7">
+        <div
+            class="xl:col-span-4 xl:row-span-7 cursor-grab active:cursor-grabbing"
+        >
             <Projects />
         </div>
 
-        <div class="xl:col-span-4 xl:row-span-7">
+        <div
+            class="xl:col-span-4 xl:row-span-7 cursor-grab active:cursor-grabbing"
+        >
             <Posts />
         </div>
 
-        <div class="xl:col-span-4 xl:row-span-3">
+        <div
+            class="xl:col-span-4 xl:row-span-3 cursor-grab active:cursor-grabbing"
+        >
             <Quote />
         </div>
     </main>
 </Layout>
+
+<script>
+    import Sortable from "sortablejs";
+
+    const el = document.getElementById("sortable-grid");
+
+    if (el) {
+        Sortable.create(el, {
+            animation: 200,
+            ghostClass: "opacity-50",
+            forceFallback: true,
+        });
+    }
+</script>
