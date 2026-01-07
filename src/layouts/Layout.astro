@@ -8,6 +8,12 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { ClientRouter } from "astro:transitions";
+
+const {
+    title = "Krit Dass • कृत दास",
+    description = "Personal website of Krit Dass, a student and researcher at Carnegie Mellon University",
+    animate = true,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -16,11 +22,9 @@ import { ClientRouter } from "astro:transitions";
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-        <meta
-            name="description"
-            content="Personal website of Krit Dass, a student and researcher at Carnegie Mellon University"
-        />
-        <title>Krit Dass • कृत दास</title>
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <meta name="description" content={description} />
+        <title>{title}</title>
         <ClientRouter />
 
         <script
@@ -43,11 +47,10 @@ import { ClientRouter } from "astro:transitions";
             applyTheme();
             document.addEventListener("astro:after-swap", applyTheme);
         </script>
-    </head>
-    <body
+    </head><body
         class="min-h-screen flex flex-col items-center relative bg-white text-black dark:bg-zinc-800 dark:text-white"
     >
-        <div id="vanta-bg"></div>
+        {animate && <div id="vanta-bg" />}
 
         <div
             class="relative z-10 w-[90%] max-w-7xl flex flex-col justify-center gap-5 leading-none pt-6 h-full"

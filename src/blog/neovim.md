@@ -6,7 +6,7 @@ date: 1/4/2023
 
 [Neovim](https://neovim.io/) is a highly configurable text editor inspired by Vim. If you aren't familiar with Vim, it's a keyboard-centered, modal editor that allows for intuitive editing. If you want to learn how to use it, install it, open it, and then type `:Tutor` to go through a tutorial. After a long time of using LazyVim, a Neovim "distribution" (premade configuration), I decided to write my own Neovim configuration. It was challenging but worth it in the end. Since many people struggle with this, I wrote this article as an opinionated overview on how to configure Neovim. As a disclaimer, I do reference Unix commands often that only work on Unix systems like MacOS, Linux, BSD, etc. If you use Windows, you will have to find the equivalent commands for these. Personally, I use Windows but I have WSL installed, which allows you to run an integrated Linux environment in Windows. You also need some basic utilities like git installed. 
 
-# Introduction
+## Introduction
 
 Neovim is usually configured in Lua but my config (which can be found [here](https://github.com/kritdass/nvim-config)) uses [Fennel](https://fennel-lang.org/), which is a Lisp dialect that compiles to Lua. If you want to use Lua instead, you can reference the `lua/` directory of my config, which has the compiled Lua code (albeit ugly). First, let's make the folder that will house our Neovim config.
 
@@ -15,7 +15,7 @@ mkdir -p $HOME/.config/nvim
 cd $HOME/.config/nvim
 ```
 
-Then, let's make an init.lua file. 
+Then, let's make an `init.lua` file. 
  
  ```sh
 touch init.lua
@@ -66,7 +66,7 @@ This code bootstraps the following:
  mkdir fnl
  ```
  
- # init.fnl
+ ## init.fnl
  
 Now, let's actually start configuring Neovim. If you are following this in Lua, you will want to still put this in `init.lua` but we will put this in `init.fnl`. Let's make the file first: 
 
@@ -90,7 +90,7 @@ This is my `init.fnl`:
 
  First, we setup the leader keys before setting up any plugins. Then, we setup lazy.nvim with our plugins (it will look in the `fnl/plugins/` which we will worry about later). Also, if you are using Fennel, remember to set `reset_packpath` to false as this can mess with tangerine. Lastly, we require config (really `fnl/config/`), which we will also setup later. 
  
- # Macros
+ ## Macros
  
 Macros are, in my opinion, the best part of using a Lisp dialect. Hibiscus already provides some macros but you are free to define some of your own. Here are some I have in my `fnl/macros.fnl`:
 
@@ -112,7 +112,7 @@ Macros are, in my opinion, the best part of using a Lisp dialect. Hibiscus alrea
 
 These are simple macros that save some keystrokes. The `plug!` macro may be confusing but all it does is it avoids Fennel's ugly syntax for mixed tables and allows you to write Lazy plugin specs as `(plug! package opts)` instead of `{1 package ...}`.
 
-# Config
+## Config
 
  This directory will house our Neovim configuration (excluding plugins). 
  
@@ -138,7 +138,7 @@ All this file does is exports all the other files in this directory so that we o
 
  Whenever you make a new file in `fnl/config/`, just remember to import it in `init.fnl`. My config is quite long so I won't put it here, but you can see it in my repository. 
  
- # Plugins
+ ## Plugins
  
  Let's make a plugins folder first.
  
@@ -158,6 +158,6 @@ My configuration includes automatic setup of LSP servers. I do this with a combi
 
 If this seems too daunting for you, there's also [lsp-zero](https://github.com/lazy-nvim/lsp-zero) which provides an easy and painless way to configure LSP. Their [guide](https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/you-might-not-need-lsp-zero.md) for configuring LSP without lsp-zero is also good if you don't want to use it. 
  
-# Conclusion
+## Conclusion
 
 Configuring Neovim can be challenging but the best way to go about it is to break it down and configure one thing at a time. If you are still unsure about anything, just reference my [config](https://github.com/kritdass/nvim-config) or anyone else's. I personally used LazyVim as a reference when I was writing mine. Good luck!

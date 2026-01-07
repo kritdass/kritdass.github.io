@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import BlogLayout from "../../layouts/BlogLayout.astro";
+import Layout from "../../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths() {
@@ -17,7 +17,11 @@ const { Content, remarkPluginFrontmatter } = await render(post);
 const date = post.data.date.toISOString().split("T")[0];
 ---
 
-<BlogLayout title={post.data.title} description={post.data.description}>
+<Layout
+    title={`Blog | ${post.data.title}`}
+    description={post.data.description}
+    animate={false}
+>
     <main class="flex justify-center min-h-screen w-full px-6">
         <article class="w-full max-w-2xl">
             <a
@@ -57,4 +61,4 @@ const date = post.data.date.toISOString().split("T")[0];
             </section>
         </article>
     </main>
-</BlogLayout>
+</Layout>
