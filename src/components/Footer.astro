@@ -1,10 +1,14 @@
 ---
-import { Icon } from "astro-icon/components";
 const currentYear = new Date().getFullYear();
 ---
 
 <footer
     class="w-full py-5 flex flex-col items-center gap-2 text-gray-500 dark:text-gray-400 font-mono text-xs transition:persist"
 >
-    Copyright &copy; {currentYear} Krit Dass &middot; All rights reserved
+    <span>
+        Copyright &copy; {currentYear} Krit Dass &middot; <a
+            href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+            class="hover:underline">CC BY-NC-ND 4.0</a
+        >
+    </span>
 </footer>
