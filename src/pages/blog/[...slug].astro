@@ -56,7 +56,10 @@ const date = post.data.date.toISOString().split("T")[0];
                 </p>
             </header>
 
-            <section class="prose dark:prose-invert">
+            <section
+                class="prose dark:prose-invert
+                prose-headings:prose-a:no-underline prose-headings:prose-a:text-inherit prose-headings:prose-a:[font-weight:inherit]"
+            >
                 <Content />
             </section>
         </article>

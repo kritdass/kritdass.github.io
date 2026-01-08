@@ -5,7 +5,7 @@ import { getSecret } from "astro:env/server";
 import { glob } from "astro/loaders";
 
 const GOODREADS_URL =
-    "https://www.goodreads.com/review/list_rss/180065380?shelf=read";
+    "https://www.goodreads.com/review/list_rss/180065380?order=d&shelf=read&sort=date_read";
 
 const books = defineCollection({
     schema: z.object({
@@ -82,7 +82,7 @@ const projects = defineCollection({
 });
 
 const CURRENTLY_READING_URL =
-    "https://www.goodreads.com/review/list_rss/180065380?shelf=currently-reading";
+    "https://www.goodreads.com/review/list_rss/180065380?order=d&shelf=currently-reading&sort=date_read";
 
 const reading = defineCollection({
     schema: z.object({

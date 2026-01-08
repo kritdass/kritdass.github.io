@@ -12,35 +12,23 @@ import Now from "../components/Now.astro";
 <Layout>
     <main
         id="sortable-grid"
-        class="grid grid-cols-1 xl:grid-cols-15 xl:grid-rows-12 gap-6 w-full items-stretch"
+        class="grid grid-cols-1 gap-6 w-full items-stretch xl:h-190
+               xl:grid-cols-15 xl:grid-rows-12
+               [&>*:nth-child(1)]:xl:col-span-8 [&>*:nth-child(1)]:xl:row-span-5
+               [&>*:nth-child(2)]:xl:col-span-3 [&>*:nth-child(2)]:xl:row-span-5
+               [&>*:nth-child(3)]:xl:col-span-4 [&>*:nth-child(3)]:xl:row-span-9
+               [&>*:nth-child(4)]:xl:col-span-3 [&>*:nth-child(4)]:xl:row-span-7
+               [&>*:nth-child(5)]:xl:col-span-4 [&>*:nth-child(5)]:xl:row-span-7
+               [&>*:nth-child(6)]:xl:col-span-4 [&>*:nth-child(6)]:xl:row-span-7
+               [&>*:nth-child(7)]:xl:col-span-4 [&>*:nth-child(7)]:xl:row-span-3"
     >
-        <div class="xl:col-span-8 xl:row-span-5">
-            <Definition />
-        </div>
-
-        <div class="xl:col-span-3 xl:row-span-5">
-            <Now />
-        </div>
-
-        <div class="xl:col-span-4 xl:row-span-9">
-            <Bookshelf />
-        </div>
-
-        <div class="xl:col-span-3 xl:row-span-7">
-            <Contact />
-        </div>
-
-        <div class="xl:col-span-4 xl:row-span-7">
-            <Projects />
-        </div>
-
-        <div class="xl:col-span-4 xl:row-span-7">
-            <Posts />
-        </div>
-
-        <div class="xl:col-span-4 xl:row-span-3">
-            <Quote />
-        </div>
+        <div><Definition /></div>
+        <div><Now /></div>
+        <div><Bookshelf /></div>
+        <div><Contact /></div>
+        <div><Projects /></div>
+        <div><Posts /></div>
+        <div><Quote /></div>
     </main>
 </Layout>
 

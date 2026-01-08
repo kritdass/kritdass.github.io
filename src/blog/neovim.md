@@ -23,7 +23,8 @@ touch init.lua
 
 Since we are using Fennel, this file will only bootstrap some necessary things. Here is my `init.lua`:
 
-```fennel
+```lua
+<!-- init.lua -->
 local function bootstrap(url, ref)
     local name = url:gsub(".*/", "")
     local path = vim.fn.stdpath("data") .. "/lazy/" .. name
@@ -77,6 +78,7 @@ touch init.fnl
 This is my `init.fnl`:
 
 ```fennel
+<!-- init.fnl -->
 (local lazy (require :lazy))
 (import-macros {: g!} :hibiscus.vim)
 
@@ -95,6 +97,7 @@ This is my `init.fnl`:
 Macros are, in my opinion, the best part of using a Lisp dialect. Hibiscus already provides some macros but you are free to define some of your own. Here are some I have in my `fnl/macros.fnl`:
 
 ```fennel
+<!-- fnl/macros.fnl -->
 (fn hl! [group val]
     `(vim.api.nvim_set_hl 0 ,group ,val))
 
@@ -130,6 +133,7 @@ These are simple macros that save some keystrokes. The `plug!` macro may be conf
 All this file does is exports all the other files in this directory so that we only have to import `config` in our `init.fnl`. It is very similar to `index.js` in JavaScript or `__init__.py` in Python. My `fnl/config/init.fnl` file looks like this: 
 
 ```fennel
+<!-- fnl/config/init.fnl -->
 (require :config.options)
 (require :config.keymaps)
 (require :config.highlights)

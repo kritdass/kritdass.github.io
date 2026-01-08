@@ -37,12 +37,12 @@ const {
         ></script>
         <script is:inline>
             function applyTheme() {
-                const theme =
+                const isDark =
                     localStorage.theme === "dark" ||
                     (!("theme" in localStorage) &&
                         window.matchMedia("(prefers-color-scheme: dark)")
                             .matches);
-                document.documentElement.classList.toggle("dark", theme);
+                document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
             }
             applyTheme();
             document.addEventListener("astro:after-swap", applyTheme);
@@ -79,7 +79,8 @@ const {
     function initVanta() {
         if (vantaEffect) vantaEffect.destroy();
 
-        const isDarkMode = document.documentElement.classList.contains("dark");
+        const isDarkMode =
+            document.documentElement.getAttribute("data-theme") === "dark";
 
         if ((window as any).VANTA && (window as any).VANTA.BIRDS) {
             vantaEffect = (window as any).VANTA.BIRDS({
