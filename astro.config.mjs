@@ -7,6 +7,7 @@ import sitemap from "@astrojs/sitemap";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import astroExpressiveCode from "astro-expressive-code";
+import rehypeExternalLinks from "rehype-external-links";
 
 export default defineConfig({
     site: "https://kritdass.github.io",
@@ -31,6 +32,10 @@ export default defineConfig({
         rehypePlugins: [
             rehypeSlug,
             [rehypeAutolinkHeadings, { behavior: "wrap" }],
+            [
+                rehypeExternalLinks,
+                { target: "_blank", rel: "noopener noreferrer" },
+            ],
         ],
     },
 });
