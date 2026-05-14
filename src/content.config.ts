@@ -36,7 +36,7 @@ const projectsList = [
     "kritdass/kod",
     "kritdass/kritdass.github.io",
     "kritdass/pytch",
-    "kritdass/aoc2025",
+    "kritdass/bitphylogeny"
 ];
 
 const headers = {
@@ -49,7 +49,7 @@ const projects = defineCollection({
     schema: z.object({
         title: z.string(),
         description: z.string().nullable(),
-        href: z.string().url(),
+        href: z.url(),
         languages: z.array(z.string()).max(3),
         stars: z.number().min(0),
     }),

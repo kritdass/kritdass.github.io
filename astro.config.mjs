@@ -8,6 +8,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import astroExpressiveCode from "astro-expressive-code";
 import rehypeExternalLinks from "rehype-external-links";
+import remarkGfm from "remark-gfm";
 
 export default defineConfig({
     site: "https://kritdass.github.io",
@@ -28,7 +29,7 @@ export default defineConfig({
         domains: ["goodreads.com"],
     },
     markdown: {
-        remarkPlugins: [remarkReadingTime],
+        remarkPlugins: [remarkReadingTime, remarkGfm],
         rehypePlugins: [
             rehypeSlug,
             [rehypeAutolinkHeadings, { behavior: "wrap" }],
