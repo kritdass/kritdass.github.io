@@ -23,5 +23,10 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# flake
+# devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# legacy direnv cache
 .direnv
