@@ -36,7 +36,10 @@ const projectsList = [
     "kritdass/kod",
     "kritdass/kritdass.github.io",
     "kritdass/pytch",
-    "kritdass/bitphylogeny"
+    "kritdass/bitphylogeny",
+    "SnowballSH/kami",
+    "ScottyLabs/terrier",
+    "ScottyLabs/collar"
 ];
 
 const headers = {
@@ -56,26 +59,38 @@ const projects = defineCollection({
     loader: async () =>
         Promise.all(
             projectsList.map(async (project) => {
+                const isScottyLabs = project.toLowerCase().startsWith("scottylabs/");
+                const apiUrl = isScottyLabs
+                    ? "https://git.cmu.dev/api/v1"
+                    : "https://api.github.com";
+                const options = isScottyLabs ? {} : { headers };
                 const projectResponse = await fetch(
-                    `https://api.github.com/repos/${project}`,
-                    { headers },
+                    `${apiUrl}/repos/${project}`,
+                    options,
                 );
+
+                if (!projectResponse.ok) {
+                    throw new Error(`Failed to fetch ${project}: ${projectResponse.status}`);
+                }
 
                 const json = await projectResponse.json();
 
                 const languagesResponse = await fetch(
-                    `https://api.github.com/repos/${project}/languages`,
-                    { headers },
+                    `${apiUrl}/repos/${project}/languages`,
+                    options,
                 );
+                if (!languagesResponse.ok) {
+                    throw new Error(`Failed to fetch languages for ${project}: ${languagesResponse.status}`);
+                }
                 const languagesJson = await languagesResponse.json();
 
                 return {
-                    id: json.id.toString(),
+                    id: `${isScottyLabs ? "forgejo" : "github"}:${json.id}`,
                     title: json.name,
                     description: json.description,
                     href: json.html_url,
                     languages: Object.keys(languagesJson).slice(0, 3),
-                    stars: json.stargazers_count,
+                    stars: isScottyLabs ? json.stars_count : json.stargazers_count,
                 };
             }),
         ),
